@@ -131,9 +131,12 @@ describe('Granting with extended grant type', function () {
           req.oauth.client.clientSecret.should.equal('nightworld');
           callback(false, true, { id: 3 });
         },
-        saveAccessToken: function (token, clientId, expires, user, cb) {
-          cb();
+        saveAccessToken: function () {
+          done(); // That's enough
         },
+        validateScope: function (scope, client, user, cb) {
+          cb(false, '', false);
+        }
       },
       grants: ['http://custom.com']
     });
